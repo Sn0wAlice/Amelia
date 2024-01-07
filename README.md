@@ -1,4 +1,4 @@
-# Amelia
+# Amelia 👑
 
 ![Amelia banner](./.github/banner.png)
 
@@ -13,7 +13,20 @@ Your personal assistant, but without spyware lol
 4. Update your config in `config.json`
 
 ## Use
-wait wait wait bro
+> wait wait wait ! This project is new. You can't really use me for the moment.
+
+After all your configuration, you can use me just by executing me.
+```shell
+node main.js
+```
+
+### Args
+Here is the argument list:
+```txt
+---------------- HELP ----------------
+
+--debug     enable debug mode
+```
 
 ## Contributors
 - [@Sn0wAlice](https://github.com/Sn0wAlice)
