@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "fr-compromise": "^0.2.8",
+    "mic": "^2.1.2",
+    "node-fetch": "^2.7.0",
+    "play-sound": "^1.1.6",
+    "vosk": "^0.3.39"
+  }
+}
