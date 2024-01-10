@@ -1,4 +1,6 @@
 {
     "lang": "fr",
-    "voice": "en_female_makeup"
+    "voice": "en_female_makeup",
+    "hostname": "http://127.0.0.1:8099",
+    "token": "m5Z3LztXAGzk-CSQDir-3oxByX0o-qKBptJrmRvrerhzM"
 }

@@ -132,3 +132,4 @@ dist
 # Custom path
 model/
 talks/
+./config.json

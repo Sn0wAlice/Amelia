@@ -15,6 +15,9 @@ MODEL_PATH = "model";
 SAMPLE_RATE = 16000; // 16KHz
 DEBUG = process.argv[2] == '--debug' ? true : false
 
+const init = require('./utils/init')
+init()
+
 /**
  * All Local Imports
  */
@@ -24,6 +27,7 @@ const compromise = require('./text/text-compromise')
 
 const fetchdata = require('./mods/fetchdata.js');
 const saveandplay = require('./mods/saveandplay.js');
+const asktoserver = require('./mods/asktoserver.js');
 
 /**
  * All prechecks
@@ -77,22 +81,23 @@ micInputStream.on('data', async (data) => {
             console.log(fulldata)
         }
 
-        // TODO : FETCH THE RESPONSE FROM THE DATABASE
+        let res = await asktoserver(fulldata);
 
-        let res = {
-            "response": true,
-            "message": fulldata.initial == "amelia" ? "Yes ? How can i help you ?" : "I don't know what you're talking about."
+        if(DEBUG) {
+            console.log("[debug] - Response from server")
+            console.log(res)
         }
-
-        // END TODO
-
-        if(!res.response) {
-            console.log(`[Amelia]: no response for this query`)
+        
+        if(res.error) {
             return;
         }
 
-        console.log(`[Amelia]: ${res.message}`)
-        const d = await fetchdata(res.message);
+        if(!res.talk && !res.talk.needtotalk) {
+            return;
+        }
+
+        console.log(`[Amelia]: ${res.talk.message}`)
+        const d = await fetchdata(res.talk.message);
         saveandplay(d);
 
     }
