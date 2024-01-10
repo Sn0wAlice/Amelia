@@ -1,7 +1,8 @@
 const fetch = require('node-fetch');
 const config = require('../config.json');
+const getvoice = require('./getvoice.js');
 
-module.exports = async function(text) {
+module.exports = async function(text, lang) {
     try {
         const response = await fetch('https://tiktok-tts.weilnet.workers.dev/api/generation', {
             method: 'POST',
@@ -10,7 +11,7 @@ module.exports = async function(text) {
             },
             body: JSON.stringify({
                 "text": text,
-                "voice": config.voice,
+                "voice": getvoice(lang)
             })
         });
         const json = await response.json();

@@ -28,13 +28,13 @@ const compromise = require('./text/text-compromise')
 const fetchdata = require('./mods/fetchdata.js');
 const saveandplay = require('./mods/saveandplay.js');
 const asktoserver = require('./mods/asktoserver.js');
+const translate = require('./mods/translate.js');
 
 /**
  * All prechecks
  */
 precheck()
-
-
+const config = require('./config.json')
 
 
 /**
@@ -105,9 +105,15 @@ micInputStream.on('data', async (data) => {
             return;
         }
 
-        console.log(`[Amelia]: ${res.talk.message}`)
-        const d = await fetchdata(res.talk.message);
+        if(config.voicelang != 'english') {
+            res.talk.message = await translate(res.talk.message, 'english', config.voicelang);
+            if(res.talk.message == 'nok') {
+                return;
+            }
+        }
 
+        console.log(`[Amelia]: ${res.talk.message}`)
+        const d = await fetchdata(res.talk.message, config.voicelang);
 
         // pose mic recording
         micInstance.pause();

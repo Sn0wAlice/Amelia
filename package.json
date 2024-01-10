@@ -4,6 +4,7 @@
     "mic": "^2.1.2",
     "node-fetch": "^2.7.0",
     "play-sound": "^1.1.6",
+    "reverso-api": "^2.22.7",
     "vosk": "^0.3.39"
   }
 }
