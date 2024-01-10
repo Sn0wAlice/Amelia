@@ -6,7 +6,10 @@ module.exports = async function(d) {
     fs.writeFileSync('./talks/audio.mp3', Buffer.from(d.data, 'base64'));
     
     // play the audio
-    player.play('./talks/audio.mp3', function(err){
-        if (err) throw err
+    return new Promise((resolve, reject) => {
+        player.play('./talks/audio.mp3', function(err){
+            if (err) throw err
+            resolve();
+        })
     })
 }

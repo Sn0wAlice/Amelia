@@ -74,7 +74,12 @@ micInputStream.on('data', async (data) => {
         if(text == null) { return ;}
 
         console.log(`[You]: ${text}`)
-        const fulldata = compromise(text)
+        let fulldata = compromise(text)
+
+        fulldata.data = {
+            timestamp: Date.now(),
+            timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+        }
         
         if(DEBUG) {
             console.log("[debug] - Full Data")
@@ -82,6 +87,10 @@ micInputStream.on('data', async (data) => {
         }
 
         let res = await asktoserver(fulldata);
+
+        if(res == null) {
+            return;
+        }
 
         if(DEBUG) {
             console.log("[debug] - Response from server")
@@ -98,8 +107,13 @@ micInputStream.on('data', async (data) => {
 
         console.log(`[Amelia]: ${res.talk.message}`)
         const d = await fetchdata(res.talk.message);
-        saveandplay(d);
 
+
+        // pose mic recording
+        micInstance.pause();
+        await saveandplay(d);
+        // resume mic recording
+        micInstance.resume();
     }
 });
 
